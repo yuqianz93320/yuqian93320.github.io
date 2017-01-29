@@ -1,10 +1,15 @@
 # Site navigation links
 
+- title: Home
+  url: /
+  excerpt:
+  image:
+ 
+- title: Blog
+  url: /Blog/
+
+
 - title: About
-  url:
-  excerpt:
-  image:
-  - title: Project
-  url:
-  excerpt:
-  image:
+  url: /About
+  
+

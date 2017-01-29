@@ -4,8 +4,8 @@ title: {{ title }}
 date: {{ date }}
 modified:
 excerpt:
-image:
-  feature:
+image: 
+  feature: feature-image-filename.jpg 
   teaser:
   thumb:
 ---

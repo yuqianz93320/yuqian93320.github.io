@@ -5,11 +5,14 @@
   excerpt:
   image:
  
-- title: Blog
-  url: /Blog/
-
-
 - title: About
-  url: /About
-  
+  url: /About/
+  excerpt: "Little bit about Iris"
+  image: 
+
+- title: Portfolio
+  url: /Portfolio/
+  excerpt: "Some works I 've done"
+  image: 
+
 

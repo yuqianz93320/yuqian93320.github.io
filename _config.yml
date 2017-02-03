@@ -2,11 +2,10 @@
 
 title: "Yuqian(Iris) Zhanfu"
 
-image:
-  feature: feature-image-filename.jpg
-description: "."
+
+description: ""
 logo: logo.jpg# 120x120 px default image used for Twitter summary card
-teaser: # 400x250 px default teaser image used in image archive grid
+teaser: logo.jpg# 400x250 px default teaser image used in image archive grid
 locale: en
 # url: "https://yuqianz93320.github.io/yuqian93320.github.io"
 url: "https://yuqianz93320.github.io/yuqian93320.github.io"
@@ -37,12 +36,27 @@ owner:
     ad-client:
     ad-slot:
   bio:
-  avatar: bio-photo.jpg # 160x160 px image for author byline
+  avatar:  # 160x160 px image for author byline
   disqus-shortname:
+
+defaults:
+  # _posts
+  - scope:
+      path: "Portfolio"
+      type: posts
+    values:
+      layout: article
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+
 
 
 include:
   - .htaccess
+   ["_pages"]
 exclude:
   - "*.less"
   - "*.sublime-project"

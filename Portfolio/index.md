@@ -1,7 +1,7 @@
 ---
 layout: archive
 
-title: "Latest Posts"
+title: 
 ---
 
 <div class="tiles">

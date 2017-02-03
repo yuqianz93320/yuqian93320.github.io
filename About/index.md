@@ -1,14 +1,10 @@
 ---
-layout: archive
+layout: media
 
-title: "Latest Posts"
+title: 
 
-image: feature-image-filename.jpg 
+image: 
 
 ---
 
-<div class="tiles">
-{% for post in site.posts %}
-	{% include post-grid.html %}
-{% endfor %}
-</div><!-- /.tiles -->
+##Hi there,  this is Iris

@@ -1,9 +1,10 @@
 ---
 layout: article
-title:  "Welcome to the new website!"
+title: "Welcome to the new website!"
 date:   2017-02-01 16:16:01 -0600
 categories: posts
-author:  "Dear Iris"
+author: "Dear Iris"
+share: false
 ---
 ###This is the first post 
 

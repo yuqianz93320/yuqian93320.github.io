@@ -8,7 +8,7 @@ logo: logo.jpg# 120x120 px default image used for Twitter summary card
 teaser: logo.jpg# 400x250 px default teaser image used in image archive grid
 locale: en
 # url: "https://yuqianz93320.github.io/yuqian93320.github.io"
-url: "https://yuqianz93320.github.io/yuqian93320.github.io"
+#url: "https://yuqianz93320.github.io/yuqian93320.github.io"
 feed:
   path: atom.xml
 
@@ -28,15 +28,15 @@ gems:
 
 
 # Site owner
-owner:
-  name:
-  email:
-  twitter:
-  google:
+owner: 
+  name: "Yuqian(Iris) Zhanfu"
+  email: zhanfuyuqian@gmail.com
+  twitter: 
+  google: 
     ad-client:
     ad-slot:
   bio:
-  avatar:  # 160x160 px image for author byline
+  avatar: avatar.jpg # 160x160 px image for author byline
   disqus-shortname:
 
 defaults:
@@ -49,7 +49,7 @@ defaults:
       author_profile: true
       read_time: true
       comments: true
-      share: true
+      share: false
       related: true
 
 

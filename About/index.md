@@ -1,5 +1,5 @@
 ---
-layout: media
+layout: archive
 
 title: 
 

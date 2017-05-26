@@ -1,0 +1,27 @@
+# ----------- CONFIGURABLE START -----------
+title:            "Yuqian(Iris) Zhanfu‘s Data World"
+description:      "Something about Iris and her data work."
+url:              http://iriszhanfu.com # Site url, without a slash at the end.
+signoff:          "Yuqian(Iris) " # Your name
+facebook_appid:   isiris@live.cn # APP ID for like button, remove from /_includes/share.html if unwanted.
+google_analytics: # Set tracking, remove from /javascripts/basic.js if unwanted.
+share:            false # Turn on twitter and facebook share buttons
+
+links: 
+  - name:         Posts
+    url:          /
+    external:     false
+  - name:         About me
+    url:          /about
+    external:     false
+  - name:         Fun Notes
+    url:          /
+    external:     false
+  
+
+# ------------ CONFIGURABLE END ------------
+
+permalink:        /posts/:title
+defaults:
+  - values:
+      layout: "default"

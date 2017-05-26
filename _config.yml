@@ -1,64 +1,24 @@
-# Site wide configuration
+# ----------- CONFIGURABLE START -----------
+title:            "Yuqian(Iris) Zhanfu‘s Data World"
+description:      "Something about Iris and her data work."
+url:              http://iriszhanfu.com # Site url, without a slash at the end.
+signoff:          "Yuqian(Iris) Zhanfu" # Your name
+facebook_appid:   isiris@live.cn# APP ID for like button, remove from /_includes/share.html if unwanted.
+google_analytics: # Set tracking, remove from /javascripts/basic.js if unwanted.
+share:            false # Turn on twitter and facebook share buttons
 
-title: "My Site"
-description: "This is a description of my awesome site."
-logo: # 120x120 px default image used for Twitter summary card
-teaser: # 400x250 px default teaser image used in image archive grid
-locale: en
-url: "https://yuqianz93320.github.io/yuqian93320.github.io"
-feed:
-  path: atom.xml
+links: 
+  - name:         Posts
+    url:          /
+    external:     false
+  - name:         About me
+    url:          /about
+    external:     false
+  
 
-# Jekyll configuration
+# ------------ CONFIGURABLE END ------------
 
-sass:
-  sass_dir: _sass
-  style: compressed
-permalink: /:categories/:title/
-kramdown:
-  toc_levels: 1..2
-highlighter: rouge
-gems:
-  - jekyll-sitemap
-  - jekyll-gist
-  - jekyll-feed
-
-
-# Site owner
-owner:
-  name:
-  email:
-  twitter:
-  google:
-    ad-client:
-    ad-slot:
-  bio:
-  avatar: bio-photo.jpg # 160x160 px image for author byline
-  disqus-shortname:
-
-
-include:
-  - .htaccess
-exclude:
-  - "*.less"
-  - "*.sublime-project"
-  - "*.sublime-workspace"
-  - .asset-cache
-  - .bundle
-  - .jekyll-assets-cache
-  - .sass-cache
-  - CHANGELOG
-  - Capfile
-  - Gemfile
-  - Gruntfile.js
-  - LICENSE
-  - README
-  - Rakefile
-  - config
-  - gulpfile.js
-  - lib
-  - log
-  - node_modules
-  - package.json
-  - spec
-  - tmp
+permalink:        /posts/:title
+defaults:
+  - values:
+      layout: "default"

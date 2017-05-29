@@ -1,5 +1,5 @@
 # ----------- CONFIGURABLE START -----------
-title:            "Yuqian(Iris) Zhanfu‘s Data World"
+title:            "Yuqian(Iris) Zhanfu‘s Blog"
 description:      "Something about Iris and her data work."
 url:              http://iriszhanfu.com # Site url, without a slash at the end.
 signoff:          "Yuqian(Iris) " # Your name
@@ -13,9 +13,6 @@ links:
     external:     false
   - name:         About me
     url:          /about
-    external:     false
-  - name:         Fun Notes
-    url:          /
     external:     false
   
 

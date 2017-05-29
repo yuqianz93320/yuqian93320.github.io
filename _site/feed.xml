@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Yuqian(Iris) Zhanfu‘s Data World</title>
+    <title>Yuqian(Iris) Zhanfu‘s Blog</title>
     <description>Something about Iris and her data work.</description>
     <link>http://localhost:4000</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title> Missig Data Processing with R</title>
+        <title> Missing Data Processing with R</title>
         <description>&lt;p&gt;The dataset used in this Project is from Kaggle competition: https://www.kaggle.com/c/house-prices-advanced-regression-techniques/kernels&lt;/p&gt;
 
 &lt;h4 id=&quot;overview&quot;&gt;Overview&lt;/h4&gt;
@@ -789,8 +789,8 @@ There are several columns that have the the missing value in the same time. Ther
 
 </description>
         <pubDate>Thu, 06 Apr 2017 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/posts/Missig-Data-Processing</link>
-        <guid isPermaLink="true">http://localhost:4000/posts/Missig-Data-Processing</guid>
+        <link>http://localhost:4000/posts/Missing-Data-Processing</link>
+        <guid isPermaLink="true">http://localhost:4000/posts/Missing-Data-Processing</guid>
       </item>
     
       <item>

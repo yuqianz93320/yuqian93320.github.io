@@ -1,0 +1,875 @@
+
+<!doctype>
+<html lang="en">
+  <head>
+    <meta content=' Missig Data Processing with R - Yuqian(Iris) Zhanfu‘s Data World' name='title' />
+    <meta content=' Missig Data Processing with R - Yuqian(Iris) Zhanfu‘s Data World' name='og:title' />
+    <title> Missig Data Processing with R - Yuqian(Iris) Zhanfu‘s Data World</title>
+    <link href='http://localhost:4000/images/fav.png' rel='shortcut icon'>
+<link href='http://localhost:4000/stylesheets/style.css' rel='stylesheet' type='text/css' />
+<link href='http://localhost:4000/stylesheets/syntax.css' rel='stylesheet' type='text/css' />
+
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type' />
+
+  <meta content='http://localhost:4000/posts/Missig-Data-Processing' property='og:url' />
+  <meta content="The dataset used in this Project is from Kaggle competition: https://www.kaggle.com/c/house-prices-advanced-regressio..." property='og:description' />
+  <meta content="article" property="og:type" />
+
+<!-- - -->
+
+
+
+
+<meta content="isiris@live.cn" property="fb:app_id" />
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=isiris@live.cn";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  </head>
+  <body class="lh-copy dark-gray pa0 f6 sans-serif bg-super-white">
+    <header class="tc mt4">
+      <a href="http://localhost:4000">
+        <img src="http://localhost:4000/images/scribble.png" alt="Home" width="53" height="59">
+      </a>
+      <p>Yuqian(Iris) Zhanfu‘s Data World</p>
+    </header>
+    <div class="mw7 bg-white mt4 mb3 center br2-ns bt bb ba-ns b--light-gray">
+      <nav class="bb b--light-gray pv4 tc" aria-label="Main">
+        
+          <a class="link blue hover-mid-gray mh2 pv1"
+             href="http://localhost:4000/">
+             Posts
+           </a>
+        
+          <a class="link blue hover-mid-gray mh2 pv1"
+             href="http://localhost:4000/about">
+             About me
+           </a>
+        
+          <a class="link blue hover-mid-gray mh2 pv1"
+             href="http://localhost:4000/">
+             Fun Notes
+           </a>
+        
+      </nav>
+
+      <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
+        
+          <div class="mb4">
+            <div class="fw600 light-silver mt1">06 Apr 2017</div>
+            <h1 class="ttu f3 mt0 lh-title cb mb2">
+              
+               Missig Data Processing with R
+            </h1>
+            
+          </div>
+        
+        <div class="markdown-body">
+          <p>The dataset used in this Project is from Kaggle competition: https://www.kaggle.com/c/house-prices-advanced-regression-techniques/kernels</p>
+
+<h4 id="overview">Overview</h4>
+<p>“To fill , or not to fill?” , that is a question when we get the datasets from real world that have a lot of missing values.
+Here, use the house price training set on kaggle houseprice competition. Some regually used missing value filling techniques are adopted in the following:</p>
+
+<ul>
+  <li>Discarding examples with missing values
+    <ol>
+      <li>Directly delete the feature based on the understanding of the dataset</li>
+    </ol>
+  </li>
+  <li>Convert the missing value in to a new value
+    <ol>
+      <li>Use a special value</li>
+      <li>Add an attribute to indicate the missing value based on the dataset situation</li>
+    </ol>
+  </li>
+  <li>Imputation methods
+    <ol>
+      <li>Assing the most frequent value to missing one</li>
+      <li>Adopt some frequent-used imputation mehtods</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"~/Documents/2017spring/Udacity/Project folder/Houseprice_train.csv"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   Id = col_integer(),
+##   MSSubClass = col_integer(),
+##   LotFrontage = col_integer(),
+##   LotArea = col_integer(),
+##   OverallQual = col_integer(),
+##   OverallCond = col_integer(),
+##   YearBuilt = col_integer(),
+##   YearRemodAdd = col_integer(),
+##   MasVnrArea = col_integer(),
+##   BsmtFinSF1 = col_integer(),
+##   BsmtFinSF2 = col_integer(),
+##   BsmtUnfSF = col_integer(),
+##   TotalBsmtSF = col_integer(),
+##   `1stFlrSF` = col_integer(),
+##   `2ndFlrSF` = col_integer(),
+##   LowQualFinSF = col_integer(),
+##   GrLivArea = col_integer(),
+##   BsmtFullBath = col_integer(),
+##   BsmtHalfBath = col_integer(),
+##   FullBath = col_integer()
+##   # ... with 18 more columns
+## )
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## See spec(...) for full column specifications.
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">)</span><span class="w"> 
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## # A tibble: 6 × 81
+##      Id MSSubClass MSZoning LotFrontage LotArea Street Alley LotShape
+##   &lt;int&gt;      &lt;int&gt;    &lt;chr&gt;       &lt;int&gt;   &lt;int&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;
+## 1     1         60       RL          65    8450   Pave  &lt;NA&gt;      Reg
+## 2     2         20       RL          80    9600   Pave  &lt;NA&gt;      Reg
+## 3     3         60       RL          68   11250   Pave  &lt;NA&gt;      IR1
+## 4     4         70       RL          60    9550   Pave  &lt;NA&gt;      IR1
+## 5     5         60       RL          84   14260   Pave  &lt;NA&gt;      IR1
+## 6     6         50       RL          85   14115   Pave  &lt;NA&gt;      IR1
+## # ... with 73 more variables: LandContour &lt;chr&gt;, Utilities &lt;chr&gt;,
+## #   LotConfig &lt;chr&gt;, LandSlope &lt;chr&gt;, Neighborhood &lt;chr&gt;,
+## #   Condition1 &lt;chr&gt;, Condition2 &lt;chr&gt;, BldgType &lt;chr&gt;, HouseStyle &lt;chr&gt;,
+## #   OverallQual &lt;int&gt;, OverallCond &lt;int&gt;, YearBuilt &lt;int&gt;,
+## #   YearRemodAdd &lt;int&gt;, RoofStyle &lt;chr&gt;, RoofMatl &lt;chr&gt;,
+## #   Exterior1st &lt;chr&gt;, Exterior2nd &lt;chr&gt;, MasVnrType &lt;chr&gt;,
+## #   MasVnrArea &lt;int&gt;, ExterQual &lt;chr&gt;, ExterCond &lt;chr&gt;, Foundation &lt;chr&gt;,
+## #   BsmtQual &lt;chr&gt;, BsmtCond &lt;chr&gt;, BsmtExposure &lt;chr&gt;,
+## #   BsmtFinType1 &lt;chr&gt;, BsmtFinSF1 &lt;int&gt;, BsmtFinType2 &lt;chr&gt;,
+## #   BsmtFinSF2 &lt;int&gt;, BsmtUnfSF &lt;int&gt;, TotalBsmtSF &lt;int&gt;, Heating &lt;chr&gt;,
+## #   HeatingQC &lt;chr&gt;, CentralAir &lt;chr&gt;, Electrical &lt;chr&gt;, `1stFlrSF` &lt;int&gt;,
+## #   `2ndFlrSF` &lt;int&gt;, LowQualFinSF &lt;int&gt;, GrLivArea &lt;int&gt;,
+## #   BsmtFullBath &lt;int&gt;, BsmtHalfBath &lt;int&gt;, FullBath &lt;int&gt;,
+## #   HalfBath &lt;int&gt;, BedroomAbvGr &lt;int&gt;, KitchenAbvGr &lt;int&gt;,
+## #   KitchenQual &lt;chr&gt;, TotRmsAbvGrd &lt;int&gt;, Functional &lt;chr&gt;,
+## #   Fireplaces &lt;int&gt;, FireplaceQu &lt;chr&gt;, GarageType &lt;chr&gt;,
+## #   GarageYrBlt &lt;int&gt;, GarageFinish &lt;chr&gt;, GarageCars &lt;int&gt;,
+## #   GarageArea &lt;int&gt;, GarageQual &lt;chr&gt;, GarageCond &lt;chr&gt;,
+## #   PavedDrive &lt;chr&gt;, WoodDeckSF &lt;int&gt;, OpenPorchSF &lt;int&gt;,
+## #   EnclosedPorch &lt;int&gt;, `3SsnPorch` &lt;int&gt;, ScreenPorch &lt;int&gt;,
+## #   PoolArea &lt;int&gt;, PoolQC &lt;chr&gt;, Fence &lt;chr&gt;, MiscFeature &lt;chr&gt;,
+## #   MiscVal &lt;int&gt;, MoSold &lt;int&gt;, YrSold &lt;int&gt;, SaleType &lt;chr&gt;,
+## #   SaleCondition &lt;chr&gt;, SalePrice &lt;int&gt;
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 1460   81
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">sapply</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##            Id    MSSubClass      MSZoning   LotFrontage       LotArea 
+##             0             0             0           259             0 
+##        Street         Alley      LotShape   LandContour     Utilities 
+##             0          1369             0             0             0 
+##     LotConfig     LandSlope  Neighborhood    Condition1    Condition2 
+##             0             0             0             0             0 
+##      BldgType    HouseStyle   OverallQual   OverallCond     YearBuilt 
+##             0             0             0             0             0 
+##  YearRemodAdd     RoofStyle      RoofMatl   Exterior1st   Exterior2nd 
+##             0             0             0             0             0 
+##    MasVnrType    MasVnrArea     ExterQual     ExterCond    Foundation 
+##             8             8             0             0             0 
+##      BsmtQual      BsmtCond  BsmtExposure  BsmtFinType1    BsmtFinSF1 
+##            37            37            38            37             0 
+##  BsmtFinType2    BsmtFinSF2     BsmtUnfSF   TotalBsmtSF       Heating 
+##            38             0             0             0             0 
+##     HeatingQC    CentralAir    Electrical      1stFlrSF      2ndFlrSF 
+##             0             0             1             0             0 
+##  LowQualFinSF     GrLivArea  BsmtFullBath  BsmtHalfBath      FullBath 
+##             0             0             0             0             0 
+##      HalfBath  BedroomAbvGr  KitchenAbvGr   KitchenQual  TotRmsAbvGrd 
+##             0             0             0             0             0 
+##    Functional    Fireplaces   FireplaceQu    GarageType   GarageYrBlt 
+##             0             0           690            81            81 
+##  GarageFinish    GarageCars    GarageArea    GarageQual    GarageCond 
+##            81             0             0            81            81 
+##    PavedDrive    WoodDeckSF   OpenPorchSF EnclosedPorch     3SsnPorch 
+##             0             0             0             0             0 
+##   ScreenPorch      PoolArea        PoolQC         Fence   MiscFeature 
+##             0             0          1453          1179          1406 
+##       MiscVal        MoSold        YrSold      SaleType SaleCondition 
+##             0             0             0             0             0 
+##     SalePrice 
+##             0
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># visualize the missing data
+</span><span class="n">image</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">),</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Missing Values"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Observation"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Variable"</span><span class="p">,</span><span class="w"> 
+    </span><span class="n">xaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="n">yaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="n">bty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">)</span><span class="w">
+</span><span class="n">axis</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">length.out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">)),</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">nrow</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/figure/posts/2017-04-06-Missig-Data-Processing/Missing data cleaning-1.png" alt="plot of chunk Missing data cleaning" />
+From this visualization, we can generally see a big picture of the missing value.
+There are several columns that have the the missing value in the same time. There should be some patterns between these missing data.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># Check columns with missing data
+</span><span class="n">colSums</span><span class="p">((</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##            Id    MSSubClass      MSZoning   LotFrontage       LotArea 
+##             0             0             0           259             0 
+##        Street         Alley      LotShape   LandContour     Utilities 
+##             0          1369             0             0             0 
+##     LotConfig     LandSlope  Neighborhood    Condition1    Condition2 
+##             0             0             0             0             0 
+##      BldgType    HouseStyle   OverallQual   OverallCond     YearBuilt 
+##             0             0             0             0             0 
+##  YearRemodAdd     RoofStyle      RoofMatl   Exterior1st   Exterior2nd 
+##             0             0             0             0             0 
+##    MasVnrType    MasVnrArea     ExterQual     ExterCond    Foundation 
+##             8             8             0             0             0 
+##      BsmtQual      BsmtCond  BsmtExposure  BsmtFinType1    BsmtFinSF1 
+##            37            37            38            37             0 
+##  BsmtFinType2    BsmtFinSF2     BsmtUnfSF   TotalBsmtSF       Heating 
+##            38             0             0             0             0 
+##     HeatingQC    CentralAir    Electrical      1stFlrSF      2ndFlrSF 
+##             0             0             1             0             0 
+##  LowQualFinSF     GrLivArea  BsmtFullBath  BsmtHalfBath      FullBath 
+##             0             0             0             0             0 
+##      HalfBath  BedroomAbvGr  KitchenAbvGr   KitchenQual  TotRmsAbvGrd 
+##             0             0             0             0             0 
+##    Functional    Fireplaces   FireplaceQu    GarageType   GarageYrBlt 
+##             0             0           690            81            81 
+##  GarageFinish    GarageCars    GarageArea    GarageQual    GarageCond 
+##            81             0             0            81            81 
+##    PavedDrive    WoodDeckSF   OpenPorchSF EnclosedPorch     3SsnPorch 
+##             0             0             0             0             0 
+##   ScreenPorch      PoolArea        PoolQC         Fence   MiscFeature 
+##             0             0          1453          1179          1406 
+##       MiscVal        MoSold        YrSold      SaleType SaleCondition 
+##             0             0             0             0             0 
+##     SalePrice 
+##             0
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">colnames</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">)[</span><span class="n">colSums</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">))</span><span class="o">&gt;</span><span class="m">0</span><span class="p">]</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##  [1] "LotFrontage"  "Alley"        "MasVnrType"   "MasVnrArea"  
+##  [5] "BsmtQual"     "BsmtCond"     "BsmtExposure" "BsmtFinType1"
+##  [9] "BsmtFinType2" "Electrical"   "FireplaceQu"  "GarageType"  
+## [13] "GarageYrBlt"  "GarageFinish" "GarageQual"   "GarageCond"  
+## [17] "PoolQC"       "Fence"        "MiscFeature"
+</code></pre>
+</div>
+<p>According to the summary , we check columns with “NA” one by one:
+“LotFrontage”: Linear feet of street connected to property.
+“Alley”:Type of alley access
+“MasVnrType”:Masonry veneer type<br />
+“MasVnrArea” : Masonry veneer area in square feet
+“BsmtQual”: Height of the basement
+“BsmtCond” :General condition of the basement <br />
+“BsmtExposure”: Walkout or garden level basement walls
+“BsmtFinType1”:Quality of basement finished area
+“BsmtFinType2”:Quality of second finished area (if present)
+“Electrical”:Electrical system<br />
+“FireplaceQu”: Fireplace quality
+“GarageType”:  Garage location
+“GarageYrBlt”: Year garage was built
+“GarageFinish”: Interior finish of the garage
+“GarageQual” :Garage quality
+“GarageCond”:Garage condition
+“PoolQC”:  Pool quality  <br />
+“Fence” :  Fence quality<br />
+“MiscFeature”: Miscellaneous feature not covered in other categories
+#####LotFrontage:Linear feet of street connected to property.
+ The LotFrontage should have some correlations with LotArea. There is no null value in LotArea, it is reasonable to check the correlation between the Lot Frontage and Lot Area.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">##Correlation Check
+</span><span class="n">cor.test</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">,</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotArea</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## 	Pearson's product-moment correlation
+## 
+## data:  Houseprice_train$LotFrontage and Houseprice_train$LotArea
+## t = 16.309, df = 1199, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.3786555 0.4713015
+## sample estimates:
+##      cor 
+## 0.426095
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># 0.426095
+# Check with square root of the LotArea
+</span><span class="n">LotArea_square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotArea</span><span class="p">)</span><span class="w">
+</span><span class="n">cor.test</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">,</span><span class="n">LotArea_square</span><span class="p">)</span><span class="c1"># 0.6020022
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## 	Pearson's product-moment correlation
+## 
+## data:  Houseprice_train$LotFrontage and LotArea_square
+## t = 26.106, df = 1199, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.5646646 0.6368806
+## sample estimates:
+##       cor 
+## 0.6020022
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">df1</span><span class="o">&lt;-</span><span class="n">data.frame</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">,</span><span class="n">LotArea_square</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## Imputation
+</span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"LotFrontage"</span><span class="p">,</span><span class="s2">"LotArea_square"</span><span class="p">)</span><span class="w">
+</span><span class="n">df1_predict</span><span class="o">&lt;-</span><span class="n">df1</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df1</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">),</span><span class="n">names</span><span class="p">]</span><span class="w">
+</span><span class="n">df1_result</span><span class="o">&lt;-</span><span class="n">df1</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df1</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">),</span><span class="n">names</span><span class="p">]</span><span class="w">
+
+</span><span class="c1">#Predict LotFrontage
+</span><span class="n">lm1</span><span class="o">&lt;-</span><span class="n">lm</span><span class="p">(</span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LotFrontage</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">LotArea_square</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df1_predict</span><span class="p">,</span><span class="n">na.action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">na.omit</span><span class="p">)</span><span class="w">
+</span><span class="n">predict1</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">predict</span><span class="p">(</span><span class="n">lm1</span><span class="p">,</span><span class="w"> </span><span class="n">df1_result</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Compare the pattern between imputed data and existing data
+</span><span class="n">df.frontage</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">rbind</span><span class="p">(</span><span class="n">cbind</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Existing"</span><span class="p">,</span><span class="n">nrow</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df1</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">),])),</span><span class="n">df1</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df1</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">),</span><span class="w"> </span><span class="s2">"LotFrontage"</span><span class="p">]),</span><span class="n">cbind</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="s2">"Imputed"</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df1</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">),])),</span><span class="w">
+                           </span><span class="nf">ceiling</span><span class="p">(</span><span class="n">predict1</span><span class="p">))))</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df.frontage</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">V</span><span class="m">2</span><span class="p">)),</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">V</span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_density</span><span class="p">()</span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Lot Frontage"</span><span class="p">)</span><span class="o">+</span><span class="w">
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">legend.title</span><span class="o">=</span><span class="n">element_blank</span><span class="p">())</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/figure/posts/2017-04-06-Missig-Data-Processing/LotFrontage/LotArea correlation-1.png" alt="plot of chunk LotFrontage/LotArea correlation" /></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># Accroding to the pattern graph the imputed value are resonable
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">)]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">predict1</span><span class="p">)</span><span class="w">
+</span><span class="c1">#Check
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">LotFrontage</span><span class="p">))</span><span class="w"> </span><span class="c1"># 0 
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 0
+</code></pre>
+</div>
+
+<p>#####Alley:Type of alley access</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">## Check the levels
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Alley</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 1369
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Alley</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## Grvl Pave 
+##   50   41
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#Assume Empty area means no Alley access
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Alley</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Alley</span><span class="p">)]</span><span class="o">&lt;-</span><span class="s2">"None"</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Alley</span><span class="p">))</span><span class="w"> </span><span class="c1"># 0 
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 0
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Alley</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## Grvl None Pave 
+##   50 1369   41
+</code></pre>
+</div>
+
+<h5 id="masvnrtypemasvnrareamasonry-veneer-type-masonry-veneer-area-in-square-feet">MasVnrType&amp;MasVnrArea:Masonry veneer type&amp; Masonry veneer area in square feet</h5>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">df2</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Houseprice_train</span><span class="w">
+</span><span class="n">names2</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"MasVnrType"</span><span class="p">,</span><span class="s2">"MasVnrArea"</span><span class="p">)</span><span class="w">
+</span><span class="n">df2_missingcheck</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df2</span><span class="p">[,</span><span class="n">names2</span><span class="p">]</span><span class="w">
+
+</span><span class="c1">## Plot the missing data in two columns
+</span><span class="w">
+</span><span class="n">image</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df2_missingcheck</span><span class="p">),</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Missing Location MasVnrType&amp;MasVnrArea"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Observation"</span><span class="p">,</span><span class="w"> </span><span class="n">xaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="n">yaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">bty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">)</span><span class="w">
+</span><span class="n">axis</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">length.out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">)),</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">nrow</span><span class="p">(</span><span class="n">df2_missingcheck</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/figure/posts/2017-04-06-Missig-Data-Processing/MasvnrTyle-1.png" alt="plot of chunk MasvnrTyle" /></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># The missing values in MasVnrType and MasVnrArea locate at same places. Check the value situation in MasVnrType column
+</span><span class="n">summary</span><span class="p">(</span><span class="n">as.factor</span><span class="p">(</span><span class="n">df2_missingcheck</span><span class="o">$</span><span class="n">MasVnrType</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##  BrkCmn BrkFace    None   Stone    NA's 
+##      15     445     864     128       8
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># Impute the NA area as "None", which has the highest quantity here. 
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MasVnrType</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MasVnrArea</span><span class="p">)]</span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MasVnrArea</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MasVnrArea</span><span class="p">)]</span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w"> 
+</span></code></pre>
+</div>
+<p>#####Basement:BsmtQual &amp; BsmtCond &amp; BsmtExposure &amp; BsmtFinType1 &amp; BsmtFinType2</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rpart</span><span class="p">)</span><span class="w">
+</span><span class="n">df3</span><span class="o">&lt;-</span><span class="n">Houseprice_train</span><span class="w">
+
+</span><span class="c1">##Missing value check
+</span><span class="n">BsmtExposure</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtCond</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtCond</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtQual</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtQual</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtFinType1</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtFinType2</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="p">))</span><span class="w">
+</span><span class="n">missing_table</span><span class="o">&lt;-</span><span class="n">cbind</span><span class="p">(</span><span class="n">BsmtQual</span><span class="p">,</span><span class="n">BsmtCond</span><span class="p">,</span><span class="n">BsmtExposure</span><span class="p">,</span><span class="n">BsmtFinType1</span><span class="p">,</span><span class="n">BsmtFinType2</span><span class="p">)</span><span class="w">
+</span><span class="n">missing_table</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##       BsmtQual BsmtCond BsmtExposure BsmtFinType1 BsmtFinType2
+## FALSE     1423     1423         1422         1423         1422
+## TRUE        37       37           38           37           38
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">## Check other basement related data
+</span><span class="n">data.frame</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinSF1</span><span class="p">,</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinSF2</span><span class="p">,</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtUnfSF</span><span class="p">,</span><span class="n">df3</span><span class="o">$</span><span class="n">TotalBsmtSF</span><span class="p">)[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,]</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##    df3.BsmtFinSF1 df3.BsmtFinSF2 df3.BsmtUnfSF df3.TotalBsmtSF
+## 1             706              0           150             856
+## 2             978              0           284            1262
+## 3             486              0           434             920
+## 4             216              0           540             756
+## 5             655              0           490            1145
+## 6             732              0            64             796
+## 7            1369              0           317            1686
+## 8             859             32           216            1107
+## 9               0              0           952             952
+## 10            851              0           140             991
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#Based on commansense, suppose the basement info with missing data can be predicted by the rest of basement related data
+</span><span class="n">names3</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"BsmtQual"</span><span class="p">,</span><span class="s2">"BsmtCond"</span><span class="p">,</span><span class="s2">"BsmtExposure"</span><span class="p">,</span><span class="s2">"BsmtFinType1"</span><span class="p">,</span><span class="s2">"BsmtFinType2"</span><span class="p">,</span><span class="s2">"BsmtFinSF1"</span><span class="p">,</span><span class="s2">"BsmtFinSF2"</span><span class="p">,</span><span class="s2">"BsmtUnfSF"</span><span class="p">,</span><span class="s2">"TotalBsmtSF"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#Impute the missing part of data
+</span><span class="n">rpart1</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rpart</span><span class="p">(</span><span class="n">as.factor</span><span class="p">(</span><span class="n">BsmtExposure</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df3</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">na.action</span><span class="o">=</span><span class="w"> </span><span class="n">na.omit</span><span class="p">,</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">)</span><span class="w">
+</span><span class="n">rpart2</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rpart</span><span class="p">(</span><span class="n">as.factor</span><span class="p">(</span><span class="n">BsmtCond</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df3</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtCond</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">na.action</span><span class="o">=</span><span class="w"> </span><span class="n">na.omit</span><span class="p">,</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">rpart3</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rpart</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">BsmtQual</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df3</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtQual</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">na.action</span><span class="o">=</span><span class="w"> </span><span class="n">na.omit</span><span class="p">,</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">)</span><span class="w">
+</span><span class="n">rpart4</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rpart</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">BsmtFinType1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df3</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">na.action</span><span class="o">=</span><span class="w"> </span><span class="n">na.omit</span><span class="p">,</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">)</span><span class="w">
+</span><span class="n">rpart5</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rpart</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">BsmtFinType2</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df3</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">na.action</span><span class="o">=</span><span class="w"> </span><span class="n">na.omit</span><span class="p">,</span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">predict</span><span class="p">(</span><span class="n">rpart1</span><span class="p">,</span><span class="n">df3</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">))</span><span class="w">
+</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtCond</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtCond</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">predict</span><span class="p">(</span><span class="n">rpart2</span><span class="p">,</span><span class="n">df3</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtCond</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">))</span><span class="w">
+</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtQual</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtQual</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">predict</span><span class="p">(</span><span class="n">rpart3</span><span class="p">,</span><span class="n">df3</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtQual</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">))</span><span class="w">
+</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">predict</span><span class="p">(</span><span class="n">rpart4</span><span class="p">,</span><span class="n">df3</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">))</span><span class="w">
+</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="n">predict</span><span class="p">(</span><span class="n">rpart5</span><span class="p">,</span><span class="n">df3</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="p">),</span><span class="n">names3</span><span class="p">],</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class"</span><span class="p">))</span><span class="w">
+
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="o">&lt;-</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtCond</span><span class="o">&lt;-</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtCond</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtQual</span><span class="o">&lt;-</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtQual</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="o">&lt;-</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="o">&lt;-</span><span class="n">df3</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="w">
+
+</span><span class="c1"># Check the missing data in the original dataset
+</span><span class="n">BsmtExposure</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtExposure</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtCond</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtCond</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtQual</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtQual</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtFinType1</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtFinType1</span><span class="p">))</span><span class="w">
+</span><span class="n">BsmtFinType2</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">BsmtFinType2</span><span class="p">))</span><span class="w">
+</span><span class="n">missing_table</span><span class="o">&lt;-</span><span class="n">cbind</span><span class="p">(</span><span class="n">BsmtQual</span><span class="p">,</span><span class="n">BsmtCond</span><span class="p">,</span><span class="n">BsmtExposure</span><span class="p">,</span><span class="n">BsmtFinType1</span><span class="p">,</span><span class="n">BsmtFinType2</span><span class="p">)</span><span class="w">
+</span><span class="n">missing_table</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##       BsmtQual BsmtCond BsmtExposure BsmtFinType1 BsmtFinType2
+## FALSE     1460     1460         1460         1460         1460
+</code></pre>
+</div>
+
+<p>#####Electrical:Electrical system</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">df4</span><span class="o">&lt;-</span><span class="n">Houseprice_train</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df4</span><span class="o">$</span><span class="n">Electrical</span><span class="p">))</span><span class="w"> </span><span class="c1"># 1
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 1
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">df4</span><span class="o">$</span><span class="n">Electrical</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FuseA FuseF FuseP   Mix SBrkr 
+##    94    27     3     1  1334
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">## Impute : impute the value as the most frequent value "SBrkr"
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Electrical</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Electrical</span><span class="p">)]</span><span class="o">&lt;-</span><span class="s2">"SBrkr"</span><span class="w">
+
+</span><span class="c1">##Check the column in the original dataset
+</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Electrical</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE 
+##  1460
+</code></pre>
+</div>
+<p>#####FireplaceQu: Fireplace quality</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">df5</span><span class="o">&lt;-</span><span class="n">Houseprice_train</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df5</span><span class="o">$</span><span class="n">FireplaceQu</span><span class="p">))</span><span class="w"> </span><span class="c1">#690
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 690
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">## Check related Fireplace column: "FirePlaces"
+</span><span class="n">table</span><span class="p">(</span><span class="n">df5</span><span class="o">$</span><span class="n">Fireplaces</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+##   0   1   2   3 
+## 690 650 115   5
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># There is also 690 rows with value 0 in "FirePlaces", are they the same?
+</span><span class="n">FP_id</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df5</span><span class="o">$</span><span class="n">Id</span><span class="p">[</span><span class="n">df5</span><span class="o">$</span><span class="n">Fireplaces</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">]</span><span class="w">
+</span><span class="n">FPQ_id</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df5</span><span class="o">$</span><span class="n">Id</span><span class="p">[</span><span class="n">df5</span><span class="o">$</span><span class="n">Fireplaces</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">]</span><span class="w">
+</span><span class="n">table</span><span class="p">(</span><span class="n">FP_id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FPQ_id</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## TRUE 
+##  690
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># Thus, the NA in the "FireplaceQu" means no FirePlaces.Impute the missing value as "None"
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">FireplaceQu</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">FireplaceQu</span><span class="p">)]</span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'None'</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">FireplaceQu</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 0
+</code></pre>
+</div>
+
+<p>#####Garage</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">##Check garage related columns
+</span><span class="n">df6</span><span class="o">&lt;-</span><span class="n">Houseprice_train</span><span class="w">
+
+
+</span><span class="c1">#GarageArea &lt;-table(is.na(df6$GarageArea))
+#GarageCars &lt;-table(is.na(df6$GarageCars))
+</span><span class="n">GarageCond</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageCond</span><span class="p">))</span><span class="w">
+</span><span class="n">GarageFinish</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageFinish</span><span class="p">))</span><span class="w">
+</span><span class="n">GarageQual</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageQual</span><span class="p">))</span><span class="w">
+</span><span class="n">GarageType</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageType</span><span class="p">))</span><span class="w">
+</span><span class="n">GarageYrBlt</span><span class="o">&lt;-</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageYrBlt</span><span class="p">))</span><span class="w">
+</span><span class="c1">#GrLivArea&lt;-table(is.na(df6$GrLivArea))
+</span><span class="n">missing_table2</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">GarageCond</span><span class="p">,</span><span class="n">GarageFinish</span><span class="p">,</span><span class="n">GarageQual</span><span class="p">,</span><span class="n">GarageType</span><span class="p">,</span><span class="n">GarageYrBlt</span><span class="p">)</span><span class="w">
+</span><span class="n">missing_table2</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##       GarageCond GarageFinish GarageQual GarageType GarageYrBlt
+## FALSE       1379         1379       1379       1379        1379
+## TRUE          81           81         81         81          81
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">df6_missingcheck</span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df6</span><span class="p">[</span><span class="w"> </span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"GarageCond"</span><span class="p">,</span><span class="s2">"GarageFinish"</span><span class="p">,</span><span class="s2">"GarageQual"</span><span class="p">,</span><span class="s2">"GarageType"</span><span class="p">,</span><span class="s2">"GarageYrBlt"</span><span class="p">)]</span><span class="w">
+
+</span><span class="c1"># Checking missing value location in the dataset
+</span><span class="n">image</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6_missingcheck</span><span class="p">),</span><span class="w"> </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Missing Location - Garage "</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Observation"</span><span class="p">,</span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Variables"</span><span class="p">,</span><span class="w"> </span><span class="n">xaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="n">yaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">bty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">)</span><span class="w">
+</span><span class="n">axis</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">length.out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">df6</span><span class="p">)),</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">nrow</span><span class="p">(</span><span class="n">df6_missingcheck</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"white"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/figure/posts/2017-04-06-Missig-Data-Processing/Garage-1.png" alt="plot of chunk Garage" /></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># For the missing areas in columns, the GarageAreas are not zero. Adopt garage-related features as predictors to impute missing values
+</span><span class="n">names4</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"GarageCond"</span><span class="p">,</span><span class="s2">"GarageFinish"</span><span class="p">,</span><span class="s2">"GarageQual"</span><span class="p">,</span><span class="s2">"GarageType"</span><span class="p">,</span><span class="s2">"GarageYrBlt"</span><span class="p">,</span><span class="s2">"GarageArea"</span><span class="p">,</span><span class="s2">"GarageCars"</span><span class="p">,</span><span class="s2">"GrLivArea"</span><span class="p">)</span><span class="w">
+
+
+</span><span class="n">df6</span><span class="p">[</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageArea</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">df6</span><span class="o">$</span><span class="n">GarageCars</span><span class="o">==</span><span class="m">0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageType</span><span class="p">),</span><span class="w"> </span><span class="n">names4</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">df6</span><span class="p">[</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageArea</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">df6</span><span class="o">$</span><span class="n">GarageCars</span><span class="o">==</span><span class="m">0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">is.na</span><span class="p">(</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageType</span><span class="p">),</span><span class="w"> </span><span class="n">names4</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"None"</span><span class="p">,</span><span class="w"> </span><span class="m">81</span><span class="p">))</span><span class="w">
+
+
+</span><span class="c1"># GarageType
+#Type.rpart&lt;-rpart(GarageType ~ ., data =df6[!is.na(df6$GarageType),names4],method = "anova", #na.action = na.omit)
+#df6$GarageType[is.na(df6$GarageType)]&lt;- rep("None", 81)
+</span><span class="w">
+</span><span class="c1">#Qual.rpart&lt;-rpart(GarageQual ~ ., data = df6[!is.na(df6$GarageQual),names4],na.action = na.omit)
+</span><span class="w">
+</span><span class="c1">#df6$GarageQual[is.na(df6$GarageQual)]&lt;- as.character(predict(Qual.rpart, #df6[is.na(df6$GarageQual),names4]))
+</span><span class="w">
+
+</span><span class="c1">#GarageFinish
+#Finish.rpart&lt;-rpart(GarageFinish ~ ., data = df6[!is.na(df6$GarageFinish),names4],na.action = #na.omit)
+#df6$GarageFinish[is.na(df6$GarageFinish)]&lt;- as.character(predict(Finish.rpart, #df6[is.na(df6$GarageFinish),names4]))
+#GarageCond
+#Cond.rpart&lt;-rpart(GarageCond ~ ., data = df6[!is.na(df6$GarageCond),names4],na.action = na.omit)
+#df6$GarageCond[is.na(df6$GarageCond)]&lt;- as.character(predict(Cond.rpart, #df6[is.na(df6$GarageCond),names4])) 
+#GarageYrBlt
+#Year.rpart&lt;- rpart(GarageYrBlt ~ ., data = df6[!is.na(df6$GarageYrBlt),names4],na.action = na.omit)
+#df6$GarageYrBlt[is.na(df6$GarageYrBlt)]&lt;- as.character(predict(Year.rpart, #df6[is.na(df6$GarageYrBlt),names4])) 
+</span><span class="w">
+</span><span class="c1">#Replace in the original dataset
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageType</span><span class="o">&lt;-</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageType</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageFinish</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageFinish</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageCond</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageCond</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageYrBlt</span><span class="w"> </span><span class="o">&lt;-</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageYrBlt</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageQual</span><span class="o">&lt;-</span><span class="n">df6</span><span class="o">$</span><span class="n">GarageQual</span><span class="w">
+
+
+</span><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageType</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE 
+##  1460
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageFinish</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE 
+##  1460
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageCond</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE 
+##  1460
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageYrBlt</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE 
+##  1460
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">GarageQual</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE 
+##  1460
+</code></pre>
+</div>
+<p>#####PoolQC</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">df7</span><span class="o">&lt;-</span><span class="n">Houseprice_train</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 1453
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## Ex Fa Gd 
+##  2  2  3
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#Check poolArea feature
+</span><span class="n">table</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolArea</span><span class="w"> </span><span class="o">&gt;</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="p">,</span><span class="n">useNA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ifany"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##        
+##           Ex   Fa   Gd &lt;NA&gt;
+##   FALSE    0    0    0 1453
+##   TRUE     2    2    3    0
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#According to the table, the houses with PoolQC empty also has no swimming pool available. Thus, NA value in "PoolQC" areas can be imputed as non
+</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="s2">"None"</span><span class="p">)</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 0
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">PoolQC</span><span class="o">&lt;-</span><span class="n">df7</span><span class="o">$</span><span class="n">PoolQC</span><span class="w">
+</span></code></pre>
+</div>
+<p>#####Fence</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">Fence</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## GdPrv  GdWo MnPrv  MnWw 
+##    59    54   157    11
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">Fence</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE  TRUE 
+##   281  1179
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#Replace NA as None
+</span><span class="w">
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">Fence</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="s2">"None"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>#####MiscFeature</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">MiscFeature</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## Gar2 Othr Shed TenC 
+##    2    2   49    1
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df7</span><span class="o">$</span><span class="n">MiscFeature</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## 
+## FALSE  TRUE 
+##    54  1406
+</code></pre>
+</div>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">##Replace NA as None
+</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MiscFeature</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MiscFeature</span><span class="p">)]</span><span class="o">&lt;-</span><span class="nf">as.character</span><span class="p">(</span><span class="s2">"None"</span><span class="p">)</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="o">$</span><span class="n">MiscFeature</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 0
+</code></pre>
+</div>
+
+<p>#####Final Check</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Houseprice_train</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 0
+</code></pre>
+</div>
+
+
+        </div>
+        <p class="mt4">
+  Til next time,<br>
+  Yuqian(Iris) 
+  <span class="silver">at 00:00</span>
+</p>
+<img src="http://localhost:4000/images/scribble3.png" alt="scribble" />
+
+      </main>
+      <section class="fixed-l mw7 center w-100 top-50 tc pb4 nt4">
+  
+    <a href="http://localhost:4000/posts/scribble-the-jekyll-theme" class="no-underline f1 light-blue hover-silver nl5 fl-l ph3">‹</a>
+  
+  
+</section>
+    </div>
+    <footer class="mw7 center tc pt3 pb4 silver">
+      Built with Jekyll using <a href="http://github.com/muan/scribble" class="link silver hover-blue pv1">Scribble</a>.
+      <img src="http://localhost:4000/images/scribble2.png" alt="scribble" class="mt4 db center" />
+    </footer>
+  </body>
+</html>

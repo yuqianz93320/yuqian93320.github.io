@@ -88,31 +88,37 @@ Here, I summarized the data extraction process with Google Analytics from three 
 
 <p>The first step to extract Google Analytics Data is to let R know which Google Analytics view is going to use. Thus, we need to get the <a href="https://www.youtube.com/watch?v=x1MljgyLeRM">viewID</a> first from Google Analytics.</p>
 
-<p>A very easy way I learnt is to use <a href="https://ga-dev-tools.appspot.com/query-explorer/">Google Analytics Query Explorer</a>, where you can automaticlly get the ViewID. ( I chose my own website view to extract the data)
-【P1】: Google analytics screenshot</p>
+<p>A very easy way I learnt is to use <a href="https://ga-dev-tools.appspot.com/query-explorer/">Google Analytics Query Explorer</a>, where you can automaticlly get the ViewID. ( I chose my own website view to extract the data)</p>
+
+<p><img src="http://localhost:4000/images/Rpic/P1.png" alt="Google analytics screenshot" title="Google Analytics Query Explorer Interface" /></p>
 
 <h4 id="step2--install-google-analytics-r-package-in-r-studio">STEP2 : Install “Google Analytics R” package in R studio</h4>
 <p>The “GoogleAnalyticsR” package needs to be installed to initiate so that the user can use the GoogleAnalyticsR library.
-【p2】: Install the package and library</p>
+<img src="http://localhost:4000/images/Rpic/P2.png" alt="Install the package and library" title="Package Installation" /></p>
+
+<p><img src="http://localhost:4000/images/Rpic/P2.2.png" alt="Install the package and library" title="Library Installation" /></p>
 
 <h4 id="step3--assign-the-data-extraction-properties">STEP3 : Assign the data extraction properties</h4>
-<p>【p3】: The command screenshot (Change metrics,date_range,dimensions)     <br />
- 【p4】     <br />
- 【p5】</p>
+<p>Then, the conditions of the extracted data need to be set through an R command, and assigned to an R variable.</p>
+
+<p><img src="http://localhost:4000/images/Rpic/P3.png" alt="The command screenshot" title="The command screenshot" /></p>
 
 <p>In this script,       <br />
- 【date_range】: Set the date range of the time you want to extract 
- 【metrics】: The name of the metrics you hope to extract. A easy way to do this is to select the metrics you want to extract on the Google Analytics Query Explorer “metrics” row, copy and paste the name after “ga:”, which indicates the variable name.
- 【dimensions】: Set the data dimensions, like “date”,”region” an</p>
+ 【date_range】: Set the date range of the time you want to extract.             <br />
+ 【metrics】: The name of the metrics you hope to extract. A easy way to do this is to select the metrics you want to extract on the Google Analytics Query Explorer “metrics” row, copy and paste the name after “ga:”, which indicates the variable name.     <br />
+ 【dimensions】: Set the data dimensions, like “date”,”region” ….</p>
 
-<p>Run the command, if everything is right ,you can see a the console output something like this :</p>
+<p>Run the command, if everything is right ,you can see the data when you type the view command.</p>
+
+<p><img src="http://localhost:4000/images/Rpic/P3-region.png" alt="The command screenshot" title="Extracted Data Screenshot" /></p>
 
 <h4 id="step4--check-the-data-and-play">STEP4 : Check the data and play</h4>
 
 <p>Finally make the data appear in the R studio. Now it is time to do the job you want. I personally just output the extracted dataset as a CSV file</p>
 
-<p>[p6]
- [p7]</p>
+<p><img src="http://localhost:4000/images/Rpic/P6.png" alt="Output Command" title="Output Command" /></p>
+
+<p><img src="http://localhost:4000/images/Rpic/P7.png" alt="Output CSVfile" title="Output CSVfile" /></p>
 
 <h2 id="tableau">Tableau</h2>
 <p>Tableau is a widely used drog-click data visualizaiton platform. It helps create effective dashboards and story telling part to make sense of your data.</p>
@@ -120,21 +126,22 @@ Here, I summarized the data extraction process with Google Analytics from three 
 <h4 id="step1--connect-the-google-analytics-account">STEP1 : Connect the Google Analytics account</h4>
 <p>The first step is to let the Tableau Desktop know which Google Analytics account will be connected with. Start Tableau and click <strong>Connect - To a Server - Google Analytics</strong> Then input the Google analytics account information.</p>
 
-<p>[P9] : LOGIN READY</p>
+<p><img src="http://localhost:4000/images/Rpic/P8.png" alt="CONNECT AND LOGIN SCREEN" title="Connect" /></p>
+
+<p><img src="http://localhost:4000/images/Rpic/P9.png" alt="LOGIN READY" title="Login Ready" /></p>
 
 <h4 id="step2-setup-the-conditions">STEP2: Setup the conditions</h4>
 <p>After connecting the Google analytics account with Tableau, the next step is to set up the conditions for the data that needs to be extracted.</p>
 
 <p>Tableau provides a convenient guidance for users to set up conditions. In this interface, you need to select <strong>Account, Property, and Profile, Filters, dimension and Measures</strong>      <br />
-[p10] CONDITION SELECTION INTERFACE</p>
+<img src="http://localhost:4000/images/Rpic/P10.png" alt="CONDITION SELECTION INTERFACE" title="Condition Settings" /></p>
 
 <h4 id="step3-play-with-the-data">STEP3: Play with the data</h4>
-<p>If all the setting in the last steps are right. It is time to use these data to conduct the analysis in Tableau. Here, I present a simple bar chart. For more Tableau data viusalizaiton function : http://onlinehelp.tableau.com/current/pro/desktop/en-us/design_and_analyze.html</p>
+<p>If all the setting in the last steps are right. It is time to use these data to conduct the analysis though <strong>sheet</strong> at the bottom of Tableau Interface. Here, I present a simple bar chart. For [more <a href="http://onlinehelp.tableau.com/current/pro/desktop/en-us/design_and_analyze.html">Tableau data viusalizaiton function</a></p>
 
-<p>[p10] The sheet1 screenshot
-[p11] The barchart (miss)</p>
+<p><img src="http://localhost:4000/images/Rpic/P11.png" alt="The sheet screenshot" title="Condition Settings" /></p>
 
-<h5 id="reference-resource">Reference Resource:</h5>
+<h4 id="reference-resource">Reference Resource:</h4>
 <p><a href="http://analyticsdemystified.com/google-analytics/tutorial_pulling_google_analytics_data_with_r/">From 0 TO R with Google Analytics</a></p>
 
 <p><a href="http://www.stateofdigital.com/exporting-google-analytics-data/">How to Extract and Export your Google Analytics Data</a></p>

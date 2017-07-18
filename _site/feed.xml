@@ -7,7 +7,7 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title> Missing Data Processing with R</title>
+        <title> [Data Analyst]Missing Data Processing with R</title>
         <description>&lt;p&gt;The dataset used in this Project is from Kaggle competition: https://www.kaggle.com/c/house-prices-advanced-regression-techniques/kernels&lt;/p&gt;
 
 &lt;h4 id=&quot;overview&quot;&gt;Overview&lt;/h4&gt;
@@ -789,64 +789,78 @@ There are several columns that have the the missing value in the same time. Ther
 
 </description>
         <pubDate>Thu, 06 Apr 2017 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/posts/Missing-Data-Processing</link>
-        <guid isPermaLink="true">http://localhost:4000/posts/Missing-Data-Processing</guid>
+        <link>http://localhost:4000/posts/DataAnalyst-Missing-Data-Processing</link>
+        <guid isPermaLink="true">http://localhost:4000/posts/DataAnalyst-Missing-Data-Processing</guid>
       </item>
     
       <item>
-        <title>Scribble, a Jekyll theme_Jekyll</title>
-        <description>&lt;p&gt;Instruction as follows. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in.&lt;/p&gt;
+        <title> Data extraction From Google Analytics</title>
+        <description>&lt;p&gt;Google Analytitcs is widely used in the digital analytics area for analyzing, reporting. The platform itself provides a powerful reporting and analyzing dashboard for users. However, the data from google analytics need extra processing steps on other platforms in order to get more actionable insights. 
+Here, I summarized the data extraction process with Google Analytics from three commonly used platfroms: &lt;strong&gt;R, Tableau&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;get-started&quot;&gt;Get started&lt;/h2&gt;
+&lt;h2 id=&quot;r&quot;&gt;R&lt;/h2&gt;
+&lt;p&gt;R has a powerful function regarding to the data visualization, processing, prediction and analytics. There are bunch of open source R packeges helping R work efficiently from different aspects. &lt;a href=&quot;http://code.markedmondson.me/googleAnalyticsR/index.html&quot;&gt;“GoogleAnalyticsR” package&lt;/a&gt; is an R library especially for working with Google Analytics data.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://github.com/muan/scribble/fork&quot;&gt;Fork the repository&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Clone the repository: &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone https://github.com/username/scribble&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Run &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Run Jekyll: &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve -w&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Go to http://localhost:4000 for your site.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;step1--get-the-viewid&quot;&gt;STEP1 : Get the ViewID&lt;/h4&gt;
+&lt;p&gt;I assume that the &lt;a href=&quot;https://www.rstudio.com/&quot;&gt;R studio set up&lt;/a&gt; is ready here.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;The first step to extract Google Analytics Data is to let R know which Google Analytics view is going to use. Thus, we need to get the &lt;a href=&quot;https://www.youtube.com/watch?v=x1MljgyLeRM&quot;&gt;viewID&lt;/a&gt; first from Google Analytics.&lt;/p&gt;
 
-&lt;h2 id=&quot;make-it-yours&quot;&gt;Make it yours&lt;/h2&gt;
+&lt;p&gt;A very easy way I learnt is to use &lt;a href=&quot;https://ga-dev-tools.appspot.com/query-explorer/&quot;&gt;Google Analytics Query Explorer&lt;/a&gt;, where you can automaticlly get the ViewID. ( I chose my own website view to extract the data)
+【P1】: Google analytics screenshot&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Edit &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;, adn then rerun &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve -w&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Change &lt;code class=&quot;highlighter-rouge&quot;&gt;about.md&lt;/code&gt; for blog intro&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For domain settings see &lt;a href=&quot;https://help.github.com/articles/setting-up-a-custom-domain-with-pages&quot;&gt;the guide from GitHub&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
+&lt;h4 id=&quot;step2--install-google-analytics-r-package-in-r-studio&quot;&gt;STEP2 : Install “Google Analytics R” package in R studio&lt;/h4&gt;
+&lt;p&gt;The “GoogleAnalyticsR” package needs to be installed to initiate so that the user can use the GoogleAnalyticsR library.
+【p2】: Install the package and library&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;h4 id=&quot;step3--assign-the-data-extraction-properties&quot;&gt;STEP3 : Assign the data extraction properties&lt;/h4&gt;
+&lt;p&gt;【p3】: The command screenshot (Change metrics,date_range,dimensions)     &lt;br /&gt;
+ 【p4】     &lt;br /&gt;
+ 【p5】&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/muan/scribble&quot; class=&quot;pa3 tc ba br2 db&quot;&gt;Get it on GitHub ♥&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In this script,       &lt;br /&gt;
+ 【date_range】: Set the date range of the time you want to extract 
+ 【metrics】: The name of the metrics you hope to extract. A easy way to do this is to select the metrics you want to extract on the Google Analytics Query Explorer “metrics” row, copy and paste the name after “ga:”, which indicates the variable name.
+ 【dimensions】: Set the data dimensions, like “date”,”region” an&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;Run the command, if everything is right ,you can see a the console output something like this :&lt;/p&gt;
 
-&lt;h2 id=&quot;the-end&quot;&gt;The end&lt;/h2&gt;
+&lt;h4 id=&quot;step4--check-the-data-and-play&quot;&gt;STEP4 : Check the data and play&lt;/h4&gt;
 
-&lt;p&gt;Like it? &lt;a href=&quot;http://twitter.com/muanchiou&quot;&gt;Tell me&lt;/a&gt;.&lt;br /&gt;
-Problem? &lt;a href=&quot;https://github.com/muan/scribble&quot;&gt;Use GitHub Issues&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Finally make the data appear in the R studio. Now it is time to do the job you want. I personally just output the extracted dataset as a CSV file&lt;/p&gt;
+
+&lt;p&gt;[p6]
+ [p7]&lt;/p&gt;
+
+&lt;h2 id=&quot;tableau&quot;&gt;Tableau&lt;/h2&gt;
+&lt;p&gt;Tableau is a widely used drog-click data visualizaiton platform. It helps create effective dashboards and story telling part to make sense of your data.&lt;/p&gt;
+
+&lt;h4 id=&quot;step1--connect-the-google-analytics-account&quot;&gt;STEP1 : Connect the Google Analytics account&lt;/h4&gt;
+&lt;p&gt;The first step is to let the Tableau Desktop know which Google Analytics account will be connected with. Start Tableau and click &lt;strong&gt;Connect - To a Server - Google Analytics&lt;/strong&gt; Then input the Google analytics account information.&lt;/p&gt;
+
+&lt;p&gt;[P9] : LOGIN READY&lt;/p&gt;
+
+&lt;h4 id=&quot;step2-setup-the-conditions&quot;&gt;STEP2: Setup the conditions&lt;/h4&gt;
+&lt;p&gt;After connecting the Google analytics account with Tableau, the next step is to set up the conditions for the data that needs to be extracted.&lt;/p&gt;
+
+&lt;p&gt;Tableau provides a convenient guidance for users to set up conditions. In this interface, you need to select &lt;strong&gt;Account, Property, and Profile, Filters, dimension and Measures&lt;/strong&gt;      &lt;br /&gt;
+[p10] CONDITION SELECTION INTERFACE&lt;/p&gt;
+
+&lt;h4 id=&quot;step3-play-with-the-data&quot;&gt;STEP3: Play with the data&lt;/h4&gt;
+&lt;p&gt;If all the setting in the last steps are right. It is time to use these data to conduct the analysis in Tableau. Here, I present a simple bar chart. For more Tableau data viusalizaiton function : http://onlinehelp.tableau.com/current/pro/desktop/en-us/design_and_analyze.html&lt;/p&gt;
+
+&lt;p&gt;[p10] The sheet1 screenshot
+[p11] The barchart (miss)&lt;/p&gt;
+
+&lt;h5 id=&quot;reference-resource&quot;&gt;Reference Resource:&lt;/h5&gt;
+&lt;p&gt;&lt;a href=&quot;http://analyticsdemystified.com/google-analytics/tutorial_pulling_google_analytics_data_with_r/&quot;&gt;From 0 TO R with Google Analytics&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.stateofdigital.com/exporting-google-analytics-data/&quot;&gt;How to Extract and Export your Google Analytics Data&lt;/a&gt;&lt;/p&gt;
+
 </description>
-        <pubDate>Sat, 11 Mar 2017 19:06:52 -0500</pubDate>
-        <link>http://localhost:4000/posts/scribble-the-jekyll-theme</link>
-        <guid isPermaLink="true">http://localhost:4000/posts/scribble-the-jekyll-theme</guid>
+        <pubDate>Thu, 06 Apr 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/posts/Data-extraction</link>
+        <guid isPermaLink="true">http://localhost:4000/posts/Data-extraction</guid>
       </item>
     
   </channel>

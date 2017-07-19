@@ -68,7 +68,7 @@
       <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
         
           <div class="mb4">
-            <div class="fw600 light-silver mt1">06 Apr 2017</div>
+            <div class="fw600 light-silver mt1">10 Jul 2017</div>
             <h1 class="ttu f3 mt0 lh-title cb mb2">
               
                Data extraction From Google Analytics
@@ -78,7 +78,7 @@
         
         <div class="markdown-body">
           <p>Google Analytitcs is widely used in the digital analytics area for analyzing, reporting. The platform itself provides a powerful reporting and analyzing dashboard for users. However, the data from google analytics need extra processing steps on other platforms in order to get more actionable insights. 
-Here, I summarized the data extraction process with Google Analytics from three commonly used platfroms: <strong>R, Tableau</strong></p>
+Here, I summarized the data extraction process with Google Analytics from three commonly used platfroms: <strong>R, Tableau</strong>.</p>
 
 <h2 id="r">R</h2>
 <p>R has a powerful function regarding to the data visualization, processing, prediction and analytics. There are bunch of open source R packeges helping R work efficiently from different aspects. <a href="http://code.markedmondson.me/googleAnalyticsR/index.html">“GoogleAnalyticsR” package</a> is an R library especially for working with Google Analytics data.</p>
@@ -93,8 +93,9 @@ Here, I summarized the data extraction process with Google Analytics from three 
 <p><img src="http://localhost:4000/images/Rpic/P1.png" alt="Google analytics screenshot" title="Google Analytics Query Explorer Interface" /></p>
 
 <h4 id="step2--install-google-analytics-r-package-in-r-studio">STEP2 : Install “Google Analytics R” package in R studio</h4>
-<p>The “GoogleAnalyticsR” package needs to be installed to initiate so that the user can use the GoogleAnalyticsR library.
-<img src="http://localhost:4000/images/Rpic/P2.png" alt="Install the package and library" title="Package Installation" /></p>
+<p>The “GoogleAnalyticsR” package needs to be installed to initiate so that the user can use the GoogleAnalyticsR library.</p>
+
+<p><img src="http://localhost:4000/images/Rpic/P2.png" alt="Install the package and library" title="Package Installation" /></p>
 
 <p><img src="http://localhost:4000/images/Rpic/P2.2.png" alt="Install the package and library" title="Library Installation" /></p>
 
@@ -104,8 +105,8 @@ Here, I summarized the data extraction process with Google Analytics from three 
 <p><img src="http://localhost:4000/images/Rpic/P3.png" alt="The command screenshot" title="The command screenshot" /></p>
 
 <p>In this script,       <br />
- 【date_range】: Set the date range of the time you want to extract.             <br />
- 【metrics】: The name of the metrics you hope to extract. A easy way to do this is to select the metrics you want to extract on the Google Analytics Query Explorer “metrics” row, copy and paste the name after “ga:”, which indicates the variable name.     <br />
+ 【date_range】: Set the the time range of the data you want to extract.                          <br />
+ 【metrics】: The name of the metrics you hope to extract. A easy way to do this is to select the metrics you want to extract on the Google Analytics Query Explorer “metrics” row, copy and paste the name after “ga:”, which indicates the variable name.                 <br />
  【dimensions】: Set the data dimensions, like “date”,”region” ….</p>
 
 <p>Run the command, if everything is right ,you can see the data when you type the view command.</p>
@@ -114,7 +115,7 @@ Here, I summarized the data extraction process with Google Analytics from three 
 
 <h4 id="step4--check-the-data-and-play">STEP4 : Check the data and play</h4>
 
-<p>Finally make the data appear in the R studio. Now it is time to do the job you want. I personally just output the extracted dataset as a CSV file</p>
+<p>Finally make the data appear in the R studio. Now it is time to do the job you want. I personally just output the extracted dataset as a CSV file.</p>
 
 <p><img src="http://localhost:4000/images/Rpic/P6.png" alt="Output Command" title="Output Command" /></p>
 
@@ -137,7 +138,7 @@ Here, I summarized the data extraction process with Google Analytics from three 
 <img src="http://localhost:4000/images/Rpic/P10.png" alt="CONDITION SELECTION INTERFACE" title="Condition Settings" /></p>
 
 <h4 id="step3-play-with-the-data">STEP3: Play with the data</h4>
-<p>If all the setting in the last steps are right. It is time to use these data to conduct the analysis though <strong>sheet</strong> at the bottom of Tableau Interface. Here, I present a simple bar chart. For [more <a href="http://onlinehelp.tableau.com/current/pro/desktop/en-us/design_and_analyze.html">Tableau data viusalizaiton function</a></p>
+<p>If all the setting in the last steps are right. It is time to use these data to conduct the analysis though <strong>sheet</strong> at the bottom of Tableau Interface. Here, I present a simple bar chart. For <a href="http://onlinehelp.tableau.com/current/pro/desktop/en-us/design_and_analyze.html">more Tableau data viusalizaiton function</a></p>
 
 <p><img src="http://localhost:4000/images/Rpic/P11.png" alt="The sheet screenshot" title="Condition Settings" /></p>
 
@@ -158,8 +159,8 @@ Here, I summarized the data extraction process with Google Analytics from three 
       </main>
       <section class="fixed-l mw7 center w-100 top-50 tc pb4 nt4">
   
+    <a href="http://localhost:4000/posts/DataAnalyst-Missing-Data-Processing" class="no-underline f1 light-blue hover-silver nl5 fl-l ph3">‹</a>
   
-    <a href="http://localhost:4000/posts/DataAnalyst-Missing-Data-Processing" class="no-underline f1 light-blue hover-silver nr5 fr-l ph3">›</a>
   
 </section>
     </div>

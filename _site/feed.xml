@@ -7,6 +7,66 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title> Advanced Segments With Google Analytics</title>
+        <description>&lt;p&gt;The advanced segments feature in Google Analytics allows users to slice and dice the historical and real-time data immediately without altering the data permanently. Here, I used the demo account &lt;a href=&quot;https://analytics.google.com/analytics/web/?utm_source=demoaccount&amp;amp;utm_medium=demoaccount&amp;amp;utm_campaign=demoaccount#report/visitors-overview/a54516992w87479473p92320289/&quot;&gt;“Google Analytics - Google Merchandise Store”&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;where-is-advanced-segments-function&quot;&gt;Where is Advanced Segments Function?&lt;/h3&gt;
+&lt;p&gt;Let’s take the Behavior - Overview report as an example. The advanced segment function is usually under the report title.   &lt;br /&gt;
+&lt;img src=&quot;http://localhost:4000/images/AdSeg/P1.png&quot; alt=&quot;p1-AdvancedSegmentsClick&quot; title=&quot;AdvancedSegmentsClick&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The default interface provides the choices of  built-in segments,custom segments and shared segments.
+&lt;img src=&quot;http://localhost:4000/images/AdSeg/P2.png&quot; alt=&quot;p2-AdvancedSegmentsInterface&quot; title=&quot;AdvancedSegmentsInterface&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To select the segments, you just need to check the cube in front of each segment. Then click the &lt;strong&gt;“Apply”&lt;/strong&gt; at the bottom of the interface. Google analytics allows &lt;strong&gt;at most 4 segments applied to the report at any one time&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-to-set-up-custom-segments-function&quot;&gt;How to Set Up Custom Segments Function?&lt;/h3&gt;
+&lt;p&gt;When the built-in segments can not satisfy the analysis requirement, a custom segment can help! To create a new custom segment, click the red &lt;strong&gt;”+ New Custom Segment”&lt;/strong&gt; button. Then you can see another interface which can guide you to set up your own custom segments. &lt;br /&gt;
+&lt;img src=&quot;http://localhost:4000/images/AdSeg/P3.png&quot; alt=&quot;p3-CustomSegment&quot; title=&quot;AdvancedSegmentsInterface&quot; /&gt; 
+Google Analytics provides several sections for the settings.     &lt;br /&gt;
+&lt;strong&gt;Demographics&lt;/strong&gt; : Segment users by demographic information such as gender, language, ages and location.       &lt;br /&gt;
+&lt;strong&gt;Technology&lt;/strong&gt; : Segment users’ visits by oprating system, browser, screen resolution, device and mobile.           &lt;br /&gt;
+&lt;strong&gt;Behavior&lt;/strong&gt; : Segment users by the frequency of visit and transactions       &lt;br /&gt;
+&lt;strong&gt;Date of First Visit&lt;/strong&gt; : Segment users by the date they first visited the page       &lt;br /&gt;
+&lt;strong&gt;Traffic Source&lt;/strong&gt; :  Segment users by the methods they used to find the page such as campaign, medium, source and kewordfileds.&lt;/p&gt;
+
+&lt;p&gt;The advanced segment function also allows users to setup custom segment similar to how it was done before with the “&lt;strong&gt;Conditions&lt;/strong&gt;” section and “&lt;strong&gt;Sequences&lt;/strong&gt;” section allow you to segment users and visits according to sequential conditions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/AdSeg/P4.png&quot; alt=&quot;p4-ConditionsSegment&quot; title=&quot;ConditionsSegment&quot; /&gt;          &lt;br /&gt;
+The summary part (at the right of the interface) will show the immediate result for review while user is setting the condition at conditions part.&lt;/p&gt;
+
+&lt;p&gt;Once you save the custom segment, you can see the segment appearing under the report title, where you can edit, remove this segment.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/AdSeg/P5.png&quot; alt=&quot;p5-CustomSegmentSave&quot; title=&quot;ConditionsSegmentSave&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also see it on the default advance segment interface when you add another segment next time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/AdSeg/P6.png&quot; alt=&quot;p6-SegmentOnPanel&quot; title=&quot;SegmentOnPanel&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;how-to-import-segments-from-gallery&quot;&gt;How to Import Segments From Gallery?&lt;/h3&gt;
+&lt;p&gt;Besides the custom segment, user can also import from Gallery to get more segements created by other Google Analytics users. Click the the &lt;strong&gt;Import from gallery&lt;/strong&gt; button next to &lt;strong&gt;“+NEW SEGMENT”&lt;/strong&gt;, the gallery interface jumped out.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/AdSeg/P7.png&quot; alt=&quot;p7- GalleryInterface&quot; title=&quot;GalleryInterface&quot; /&gt;  &lt;br /&gt;
+Select the segment bundle that can satisfy your work.Click &lt;strong&gt;Import&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/AdSeg/P8.png&quot; alt=&quot;p8-AfterImportSegment&quot; title=&quot;CreateImportedSegment&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this window you can see the Segments, Custom Report or Dashboards created by the author. Check intems that you need, then click &lt;strong&gt;Create&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/AdSeg/P9.png&quot; alt=&quot;p9-DefaultSegmentPanel&quot; title=&quot;DefaultSegmentPanel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you click the &lt;strong&gt;+Add segment&lt;/strong&gt; next time, you can see the imported segments appearing on the default interface and apply them.&lt;/p&gt;
+
+&lt;h4 id=&quot;reference-resource&quot;&gt;Reference Resource&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://support.google.com/analytics/answer/3123951?hl=en&quot;&gt;About segment&lt;/a&gt;      &lt;br /&gt;
+&lt;a href=&quot;http://www.practicalecommerce.com/Google-Analytics-How-to-Use-Advanced-Segments&quot;&gt;Google Analytics: How to use advanced segments&lt;/a&gt;        &lt;br /&gt;
+&lt;a href=&quot;https://blog.kissmetrics.com/new-google-analytics-advanced-segments/&quot;&gt;How to use the New Google Analytics Advanced Segments&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 19 Jul 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/posts/Advanced-Segment-With-Google-Analytics</link>
+        <guid isPermaLink="true">http://localhost:4000/posts/Advanced-Segment-With-Google-Analytics</guid>
+      </item>
+    
+      <item>
         <title> Data extraction From Google Analytics</title>
         <description>&lt;p&gt;Google Analytitcs is widely used in the digital analytics area for analyzing, reporting. The platform itself provides a powerful reporting and analyzing dashboard for users. However, the data from google analytics need extra processing steps on other platforms in order to get more actionable insights. 
 Here, I summarized the data extraction process with Google Analytics from three commonly used platfroms: &lt;strong&gt;R, Tableau&lt;/strong&gt;.&lt;/p&gt;
@@ -85,7 +145,7 @@ Here, I summarized the data extraction process with Google Analytics from three 
       </item>
     
       <item>
-        <title> [Data Analyst]Missing Data Processing with R</title>
+        <title> Missing Data Processing with R</title>
         <description>&lt;p&gt;The dataset used in this Project is from Kaggle competition: https://www.kaggle.com/c/house-prices-advanced-regression-techniques/kernels&lt;/p&gt;
 
 &lt;h4 id=&quot;overview&quot;&gt;Overview&lt;/h4&gt;

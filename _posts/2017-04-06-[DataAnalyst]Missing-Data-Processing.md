@@ -1,5 +1,5 @@
 ---
-title: " [Data Analyst]Missing Data Processing with R"
+title: " Missing Data Processing with R"
 output: github_document
 ---
 

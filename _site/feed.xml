@@ -927,8 +927,8 @@ There are several columns that have the the missing value in the same time. Ther
 
 </description>
         <pubDate>Thu, 06 Apr 2017 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/posts/DataAnalyst-Missing-Data-Processing</link>
-        <guid isPermaLink="true">http://localhost:4000/posts/DataAnalyst-Missing-Data-Processing</guid>
+        <link>http://localhost:4000/posts/Missing-Data-Processing</link>
+        <guid isPermaLink="true">http://localhost:4000/posts/Missing-Data-Processing</guid>
       </item>
     
   </channel>

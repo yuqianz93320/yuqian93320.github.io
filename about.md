@@ -7,16 +7,16 @@ title:
 	</head>
 	<body>
 		<div class= "intro">
-  			<p style = "font-size: 30px "> 🙋 Hi! </p> 
+  			<p style = "font-size: 30px "> </p> 
   			<p >
-  			I'm Yuqian, most of my friends call me Iris. I am a new graduate from <b><span style="background-color: #FFFACD "> Master of Science in Information Technology </span></b> (Big Data specialization) at the University of Pittsburgh. I am passionate about applying my <b><span style="background-color: #FFFACD ">Data </span></b>and <b><span style="background-color: #FFFACD ">Technology </span></b> knowledge to solve <b><span style="background-color: #FFFACD ">Business</span></b> problem!
+  			I'm Yuqian, most of my friends call me Iris. I am a new graduate from Master of Science in Information Science (Big Data specialization) at the University of Pittsburgh. I am passionate to contribute my technical and soft skills to build the bridge between numbers and problems.
   			<br>
   			<p> 
-  			📑 I had experience in data cleaning, exploration, visualization, mining and geographical data extraction, manipulation with ArcGIS from real-world and course projects. You can find more professional information on <a href="https://drive.google.com/file/d/0B0pmVs3ouADnbWlRYVJmYm80VDQ/view?usp=sharing"> My Resume </a> 🔖
+  			📑 I had programming experience in data visualization, mining and geographical data extraction, manipulation with ArcGIS from real-world and course projects.  You can find more professional information on <a href="https://drive.google.com/open?id=0B0pmVs3ouADnZkJvNWZ0aGhTNW8"> My Resume </a> 🔖
   			</p>
   			<br>
   			<p> 
-  			💠 I love enjoying my life in my spare time with doing <span style="background-color: #FFFACD "> Bikram Yoga </span>, going <span style="background-color: #FFFACD "> gym </span>, playing the <span style="background-color: #FFFACD "> piano </span> and explore new activites with friends
+  			💠  Bikram Yoga , gym , piano and exploring new activites with friends are my way to enjoy the life!
   			</p>
   			<br>
   			<h2>

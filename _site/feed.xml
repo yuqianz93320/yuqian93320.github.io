@@ -47,8 +47,9 @@ d. Videos&lt;/p&gt;
 &lt;p&gt;For more examples, check &lt;a href=&quot;https://www.koozai.com/blog/analytics/the-complete-google-analytics-event-tracking-guide-plus-10-amazing-examples/&quot;&gt;The Complete Google analytics Event Tracking Guide Plus 10 Amazing Examples&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;3event-tracking-report&quot;&gt;3.Event Tracking Report&lt;/h3&gt;
-&lt;p&gt;After setting up the code, the anlaytcis result will appear on the Google analytics &lt;strong&gt;“BEHAVIOR - EVENTS - xxxx”&lt;/strong&gt; report.
-&lt;img src=&quot;http://localhost:4000/images/AdSeg/P5.png&quot; alt=&quot;p1- EventTrackingReport&quot; title=&quot;Event Tracking Report &quot; /&gt;&lt;/p&gt;
+&lt;p&gt;After setting up the code, the anlaytcis result will appear on the Google analytics &lt;strong&gt;“BEHAVIOR - EVENTS - xxxx”&lt;/strong&gt; report.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/EventT/p1.png&quot; alt=&quot;p1- EventTrackingReport&quot; title=&quot;Event Tracking Report &quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In these report you can click to check different reports based on the needs.&lt;/p&gt;
 

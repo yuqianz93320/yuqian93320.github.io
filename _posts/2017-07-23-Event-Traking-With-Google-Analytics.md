@@ -41,8 +41,9 @@ _gaq.push([‘_trackEvent’, ‘videos’, ‘video duration’, ‘SEO is grea
 For more examples, check [The Complete Google analytics Event Tracking Guide Plus 10 Amazing Examples](https://www.koozai.com/blog/analytics/the-complete-google-analytics-event-tracking-guide-plus-10-amazing-examples/)
 
 ### 3.Event Tracking Report
-After setting up the code, the anlaytcis result will appear on the Google analytics **"BEHAVIOR - EVENTS - xxxx"** report.
-![p1- EventTrackingReport]({{ site.url }}/images/AdSeg/P5.png "Event Tracking Report ")
+After setting up the code, the anlaytcis result will appear on the Google analytics **"BEHAVIOR - EVENTS - xxxx"** report.      
+
+![p1- EventTrackingReport]({{ site.url }}/images/EventT/p1.png "Event Tracking Report ")
 
 In these report you can click to check different reports based on the needs.
 

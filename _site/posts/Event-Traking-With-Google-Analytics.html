@@ -1,0 +1,166 @@
+
+<!doctype>
+<html lang="en">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WRBZM6X');</script>
+    <!-- End Google Tag Manager -->
+    <meta content=' Event Tracking With Google Analytics - Yuqian(Iris) Zhanfu‘s Blog' name='title' />
+    <meta content=' Event Tracking With Google Analytics - Yuqian(Iris) Zhanfu‘s Blog' name='og:title' />
+    <title> Event Tracking With Google Analytics - Yuqian(Iris) Zhanfu‘s Blog</title>
+    <link href='http://localhost:4000/images/fav.png' rel='shortcut icon'>
+<link href='http://localhost:4000/stylesheets/style.css' rel='stylesheet' type='text/css' />
+<link href='http://localhost:4000/stylesheets/syntax.css' rel='stylesheet' type='text/css' />
+
+<meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+<meta content='text/html; charset=utf-8' http-equiv='content-type' />
+
+  <meta content='http://localhost:4000/posts/Event-Traking-With-Google-Analytics' property='og:url' />
+  <meta content="Google Analytics provides a powerful function to track both the website performance and visitors’behaviors on the pag..." property='og:description' />
+  <meta content="article" property="og:type" />
+
+<!-- - -->
+
+
+
+
+<meta content="isiris@live.cn" property="fb:app_id" />
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=isiris@live.cn";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+  </head>
+  <body class="lh-copy dark-gray pa0 f6 sans-serif bg-super-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WRBZM6X"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header class="tc mt4">
+      <a href="http://localhost:4000">
+        <img src="http://localhost:4000/images/scribble.png" alt="Home" width="53" height="59">
+      </a>
+      <p>Yuqian(Iris) Zhanfu‘s Blog</p>
+    </header>
+    <div class="mw7 bg-white mt4 mb3 center br2-ns bt bb ba-ns b--light-gray">
+      <nav class="bb b--light-gray pv4 tc" aria-label="Main">
+        
+          <a class="link blue hover-mid-gray mh2 pv1"
+             href="http://localhost:4000/">
+             Posts
+           </a>
+        
+          <a class="link blue hover-mid-gray mh2 pv1"
+             href="http://localhost:4000/about">
+             About me
+           </a>
+        
+      </nav>
+
+      <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
+        
+          <div class="mb4">
+            <div class="fw600 light-silver mt1">23 Jul 2017</div>
+            <h1 class="ttu f3 mt0 lh-title cb mb2">
+              
+               Event Tracking With Google Analytics
+            </h1>
+            
+          </div>
+        
+        <div class="markdown-body">
+          <p>Google Analytics provides a powerful function to track both the website performance and visitors’behaviors on the page. The general tracking can give us a brief knowledge of pageview number and some other page loading related number. However, when it comes to specific users behavior such as how many people clicked on or watched a specific video, it is hard to be tracked by default. <strong>Event Tracking</strong>, a function for user behavior tracking in Google Analytics can help uncover the secret.</p>
+
+<h3 id="1-understand-the-event">1. Understand the Event</h3>
+<p>What is event tracking? Event tracking is a feature of Google Analytics that allows users to track actions if a URL change is recorded. Some event events maybe considered during the tracking process: 
+a. Banner Ads
+b. Social Links
+c. Email
+d. Videos</p>
+
+<p>How these events are tracked? It is through passing the following variable information to Google Analytics.
+                  <strong>Category, Action,Label and Value</strong></p>
+
+<p>Then, how the event tracking works is through adding some simple pieces of code to link image, tab, video or text. The result will automatically starts tracking within the dashboard.</p>
+
+<h3 id="2implement-event-tracking">2.Implement Event Tracking</h3>
+
+<p>How the code looks like? Basically, to track the event, the <strong>_trackEvent()</strong>method needs to be called.</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">_trackEvent</span><span class="p">(</span><span class="nx">CATEGORY</span><span class="p">,</span> <span class="nx">ACTION</span><span class="p">,</span> <span class="nx">OPT_LABEL</span><span class="p">,</span> <span class="nx">OPT_VALUE</span><span class="p">,</span> <span class="nx">OPT_NONINTERACTION</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>..<em>CATEGORY(required) - grouping events into desired tracking groups
+..</em>ACTION(required) - A unique string paired with category and commonly used to define the type of user interaction for web object.
+..<em>OPT_LABEL(optional) - A string to provide additional dimensions to event data.
+..</em>OPT_VALUE(optional) - An integer used to provide numerical data about user event
+..*OPT_NONINTERACTION(optional) - A setting to indicate if the event hit will be used in bounce-rate</p>
+
+<p>Let’s go deeper of the code. For example, you want to track how users interact with the video(Tagging the Play, Pause and Stop button) you put. In this example, users fire data when they clicks the button. Thus, you will need to put the code, inside the onClick function, like :</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">onClick</span><span class="o">=</span><span class="err">”</span><span class="nx">_gaq</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="err">‘</span><span class="nx">_trackEvent</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">videos</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">play</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">SEO</span> <span class="nx">is</span> <span class="nx">great</span><span class="err">’</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">true</span><span class="p">]);</span><span class="err">”</span>
+</code></pre>
+</div>
+<p>or if you want to track the video duration rather than a click action, the code would like:</p>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="nx">_gaq</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="err">‘</span><span class="nx">_trackEvent</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">videos</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">video</span> <span class="nx">duration</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="nx">SEO</span> <span class="nx">is</span> <span class="nx">great</span><span class="err">’</span><span class="p">,</span> <span class="nx">videoDuration</span><span class="p">]);</span>
+</code></pre>
+</div>
+
+<p>For more examples, check <a href="https://www.koozai.com/blog/analytics/the-complete-google-analytics-event-tracking-guide-plus-10-amazing-examples/">The Complete Google analytics Event Tracking Guide Plus 10 Amazing Examples</a></p>
+
+<h3 id="3event-tracking-report">3.Event Tracking Report</h3>
+<p>After setting up the code, the anlaytcis result will appear on the Google analytics <strong>“BEHAVIOR - EVENTS - xxxx”</strong> report.
+<img src="http://localhost:4000/images/AdSeg/P5.png" alt="p1- EventTrackingReport" title="Event Tracking Report " /></p>
+
+<p>In these report you can click to check different reports based on the needs.</p>
+
+<h4 id="more-resource">More Resource</h4>
+<p>To master the event tracking process is not easy. It requires some javascript and Tag manager knowledge too. Here I attached some useful Links for people who want to go deeper into this important digital analytics skill.</p>
+
+<p><a href="https://support.google.com/analytics/answer/1033068#Implementation">About Event</a>     <br />
+<a href="http://searchengineland.com/event-tracking-101-for-google-analytics-93358">Event Tracking 101 For Google Analytics</a>       <br />
+<a href="https://www.gravitatedesign.com/blog/event-tracking-google-analytics/">Event Tracking for Google Analytics : 3 Step Set up</a>       <br />
+<a href="https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide">Event Tracking - Web Tracking(ga.js)</a>
+<a href="https://www.w3schools.com/js/">JavaScript Tutorial</a>
+<a href="https://support.google.com/analytics/answer/6164470?hl=en">Event tracking with Google Tag Manager</a></p>
+
+
+        </div>
+        <p class="mt4">
+  Til next time,<br>
+  Yuqian(Iris) 
+  <span class="silver">at 00:00</span>
+</p>
+<img src="http://localhost:4000/images/scribble3.png" alt="scribble" />
+
+      </main>
+      <section class="fixed-l mw7 center w-100 top-50 tc pb4 nt4">
+  
+    <a href="http://localhost:4000/posts/Advanced-Segment-With-Google-Analytics" class="no-underline f1 light-blue hover-silver nl5 fl-l ph3">‹</a>
+  
+  
+</section>
+    </div>
+    <footer class="mw7 center tc pt3 pb4 silver">
+      Built with Jekyll using <a href="http://github.com/muan/scribble" class="link silver hover-blue pv1">Scribble</a>.
+      <img src="http://localhost:4000/images/scribble2.png" alt="scribble" class="mt4 db center" />
+    </footer>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101012175-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

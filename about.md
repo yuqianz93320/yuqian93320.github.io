@@ -6,6 +6,7 @@ title:
 	<link rel="stylesheet" type="text/css" href="aboutme.css">
 	</head>
 	<body>
+		<!--
 		<div class= "intro">
   			<p style = "font-size: 30px "> </p> 
   			<p >
@@ -29,7 +30,5 @@ title:
   			
 
 
-
-
-
+				-->
 
